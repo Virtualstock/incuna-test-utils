@@ -1,13 +1,13 @@
-from django.conf.urls import url
 from django.contrib import admin
+from django.urls import path
 
 from tests import views
 
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url('foo/', views.MyView.as_view(), name='class-view'),
-    url('bar/', views.MyAPIView.as_view(), name='api-view'),
-    url('spam/', views.MyAPIView, name='missing-as-view'),
-    url('', views.my_view, name='function-view'),
+    path("admin/", admin.site.urls),
+    path("foo/", views.MyView.as_view(), name="class-view"),
+    path("bar/", views.MyAPIView.as_view(), name="api-view"),
+    path("spam/", views.MyAPIView, name="missing-as-view"),
+    path("", views.my_view, name="function-view"),
 ]

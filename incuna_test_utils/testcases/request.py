@@ -2,13 +2,14 @@ from django.contrib.auth.models import AnonymousUser
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.core.exceptions import ImproperlyConfigured
 from django.test import RequestFactory, TestCase
+from mock import MagicMock
 
 
 class DummyStorage:
     def __init__(self):
         self.store = []
 
-    def add(self, level, message, extra_tags=''):
+    def add(self, level, message, extra_tags=""):
         self.store.append(message)
 
     def __len__(self):
@@ -41,7 +42,7 @@ class BaseRequestTestCase(TestCase):
         if it doesn't.  Otherwise, it returns the view, ensuring it's callable.
         """
         try:
-            view = cls.__dict__['view']
+            view = cls.__dict__["view"]
         except KeyError:
             message = "This test must have a 'view' attribute."
             raise ImproperlyConfigured(message)
@@ -71,26 +72,21 @@ class BaseRequestTestCase(TestCase):
     @staticmethod
     def add_session_to_request(request):
         """Annotate a request object with a session."""
-        middleware = SessionMiddleware()
+        mock_response = MagicMock()
+        middleware = SessionMiddleware(get_response=mock_response)
         middleware.process_request(request)
         request.session.save()
 
     def create_request(
-        self,
-        method='get',
-        url='/',
-        user=None,
-        auth=True,
-        add_session=False,
-        **kwargs
+        self, method="get", url="/", user=None, auth=True, add_session=False, **kwargs
     ):
         if user is None:
             user = self.create_user(auth=auth)
         request = getattr(self.request_factory(), method)(url, **kwargs)
         request.user = user
 
-        if 'data' in kwargs:
-            request.DATA = kwargs['data']
+        if "data" in kwargs:
+            request.DATA = kwargs["data"]
 
         request._messages = DummyStorage()
 

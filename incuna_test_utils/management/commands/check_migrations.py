@@ -23,8 +23,8 @@ class Command(BaseCommand):
         changes = autodetector.changes(graph=executor.loader.graph)
         if changes:
             message = (
-                "Your models have changes that are not yet reflected " +
-                "in a migration. Run 'manage.py makemigrations' to make " +
-                "new migrations."
+                "Your models have changes that are not yet reflected "
+                + "in a migration. Run 'manage.py makemigrations' to make "
+                + "new migrations."
             )
             raise CommandError(message)

@@ -17,17 +17,17 @@ class RequestTestCase(BaseRequestTestCase):
 
     def test_create_request(self):
         request = self.create_request()
-        assert request.method == 'GET'
-        assert request.path == '/'
+        assert request.method == "GET"
+        assert request.path == "/"
         assert isinstance(request.user, User)
         assert isinstance(request._messages, DummyStorage)
 
     def test_create_request_post(self):
-        request = self.create_request('post')
-        assert request.method == 'POST'
+        request = self.create_request("post")
+        assert request.method == "POST"
 
     def test_create_request_url(self):
-        url = '/foo/'
+        url = "/foo/"
         request = self.create_request(url=url)
         assert request.path == url
 
@@ -41,7 +41,7 @@ class RequestTestCase(BaseRequestTestCase):
         assert isinstance(request.user, AnonymousUser)
 
     def test_create_request_data(self):
-        data = {'foo': 'bar'}
+        data = {"foo": "bar"}
         request = self.create_request(data=data)
         assert request.DATA == data
 
@@ -101,7 +101,7 @@ class RequestTestCaseClassView(BaseRequestTestCase):
         """
         request = object()
         args = (object(),)
-        kwargs = {'mock': object()}
+        kwargs = {"mock": object()}
 
         view = self.view_instance(request, *args, **kwargs)
 

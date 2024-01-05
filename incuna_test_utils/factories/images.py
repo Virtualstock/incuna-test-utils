@@ -9,17 +9,17 @@ from ..utils import TEST_SERVER
 
 
 directory = os.path.dirname(__file__)
-SHORT_FILE_PATH = 'files/image.png'
+SHORT_FILE_PATH = "files/image.png"
 IMAGE_PATH = os.path.join(directory, SHORT_FILE_PATH)
 
 
 def simple_png():
     """Create a 1x1 black png in memory and return a handle to it."""
     image_file = BytesIO()
-    image = Image.new('RGBA', (1, 1))
-    image.save(image_file, 'png')
-    image_file.name = 'test.png'
-    image_file.url = '{0}/{1}'.format(
+    image = Image.new("RGBA", (1, 1))
+    image.save(image_file, "png")
+    image_file.name = "test.png"
+    image_file.url = "{0}/{1}".format(
         TEST_SERVER,
         image_file.name,
     )
@@ -37,9 +37,10 @@ class LocalFileField(factory.django.FileField):
         class ATestFactory(factory.Factory):
             file = LocalFileField()
     """
+
     def __init__(self, *args, **kwargs):
         defaults = {
-            'from_path': IMAGE_PATH,
+            "from_path": IMAGE_PATH,
         }
         defaults.update(kwargs)
         super(LocalFileField, self).__init__(*args, **defaults)
@@ -54,10 +55,13 @@ class SimplePngFileField(factory.LazyAttribute):
         class ATestFactory(factory.Factory):
             file = SimplePngFileField()
     """
+
     def __init__(self, method=None, *args, **kwargs):
         if not method:
+
             def png_file(a):
                 return File(simple_png())
+
             method = png_file
         super(SimplePngFileField, self).__init__(method, *args, **kwargs)
 
@@ -81,6 +85,6 @@ def uploadable_file():
     passed in using `files`, which correlates to `request.FILES`. Other form data can be
     passed in using `data` as normal.
     """
-    upload = File(open(IMAGE_PATH, mode='rb'))
+    upload = File(open(IMAGE_PATH, mode="rb"))
     upload.name = SHORT_FILE_PATH  # To avoid 'This name is too long' errors.
     return upload

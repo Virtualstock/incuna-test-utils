@@ -15,6 +15,7 @@ class BaseAdminIntegrationTestCase(TestCase):
     the client;
       * `model` which defines the model to test.
     """
+
     def setUp(self):
         """Create a user and authenticate it on the client."""
         admin_user = self.user_factory.create()
@@ -26,7 +27,7 @@ class BaseAdminIntegrationTestCase(TestCase):
 
     def get_url_name(self, action):
         """Generate admin url name for `self.model`."""
-        return 'admin:{app}_{model}_{action}'.format(
+        return "admin:{app}_{model}_{action}".format(
             app=self.model._meta.app_label,
             model=self.model._meta.object_name.lower(),
             action=action,
@@ -39,19 +40,19 @@ class BaseAdminIntegrationTestCase(TestCase):
 
     def get_admin_add_page(self):
         """`GET` the add page for the model admin."""
-        return self.get_admin_page('add')
+        return self.get_admin_page("add")
 
     def get_admin_changelist_page(self):
         """`GET` the changelist page for the model admin."""
-        return self.get_admin_page('changelist')
+        return self.get_admin_page("changelist")
 
     def get_admin_change_page(self, obj):
         """`GET` the object change page for the model admin."""
-        return self.get_admin_page('change', (obj.pk,))
+        return self.get_admin_page("change", (obj.pk,))
 
     def get_admin_delete_page(self, obj):
         """`GET` the object delete page for the model admin."""
-        return self.get_admin_page('delete', (obj.pk,))
+        return self.get_admin_page("delete", (obj.pk,))
 
 
 class BaseIntegrationTestCase(BaseRequestTestCase):
@@ -108,7 +109,7 @@ class BaseIntegrationTestCase(BaseRequestTestCase):
         Returns a HTTPResponse object with the request (created or otherwise)
         attached.
         """
-        request = kwargs.pop('request', None)
+        request = kwargs.pop("request", None)
         if request is None:
             request = self.create_request(add_session=True)
 
@@ -133,7 +134,7 @@ class BaseIntegrationTestCase(BaseRequestTestCase):
             request = response.request
 
         response = render(request, response.template_name, response.context_data)
-        return response.content.decode('utf-8')
+        return response.content.decode("utf-8")
 
     def access_view_and_render_response(self, *args, **kwargs):
         """
@@ -148,8 +149,8 @@ class BaseIntegrationTestCase(BaseRequestTestCase):
         defaults to 200.  Other args and kwargs are passed on to the view
         method.
         """
-        request = kwargs.pop('request', None)
-        expected_status = kwargs.pop('expected_status', 200)
+        request = kwargs.pop("request", None)
+        expected_status = kwargs.pop("expected_status", 200)
 
         response = self.access_view(*args, request=request, **kwargs)
 
@@ -165,10 +166,10 @@ class BaseIntegrationTestCase(BaseRequestTestCase):
     @staticmethod
     def _assert_count_message(needle, haystack, count, actual_count):
         """Build a verbose error message in case we need it."""
-        plural = '' if count == 1 else 's'
+        plural = "" if count == 1 else "s"
         message = (
-            u'Expected {count} instance{plural} of {needle}, but found ' +
-            u'{actual_count}, in {haystack}'
+            "Expected {count} instance{plural} of {needle}, but found "
+            + "{actual_count}, in {haystack}"
         )
         return message.format(
             count=count,
@@ -181,8 +182,10 @@ class BaseIntegrationTestCase(BaseRequestTestCase):
     @staticmethod
     def _assert_presence_message(needle, haystack, is_present):
         """Build a verbose error message in case we need it."""
-        contradiction = '' if is_present else 'not '  # Note the trailing space in 'not '!
-        message = u'Expected {contradiction}to find {needle} in {haystack}'
+        contradiction = (
+            "" if is_present else "not "
+        )  # Note the trailing space in 'not '!
+        message = "Expected {contradiction}to find {needle} in {haystack}"
         return message.format(
             contradiction=contradiction,
             needle=needle,

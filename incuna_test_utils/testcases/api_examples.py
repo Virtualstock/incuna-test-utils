@@ -14,7 +14,7 @@ class APIExampleMixin:
             call self.api_example_json_file('/patients/pk', 'post')
             and you'll get 'api-description/patients/pk/post.json'
         """
-        return '{base}{url}/{method}.json'.format(
+        return "{base}{url}/{method}.json".format(
             base=self.EXAMPLES_DIR,
             url=url,
             method=method,
@@ -45,8 +45,8 @@ class APIExampleMixin:
         The method copies the data dictionary in order to operate non-destructively,
         since you might need to run it several times with different `field_names` values.
         """
-        url_pk_to_replace = '/{}'.format(pk_to_replace)
-        url_object_pk = '/{}'.format(object_pk)
+        url_pk_to_replace = "/{}".format(pk_to_replace)
+        url_object_pk = "/{}".format(object_pk)
 
         # Copy data rather than modifying it in-place.
         adjusted_data = {}

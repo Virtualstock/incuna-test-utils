@@ -7,5 +7,6 @@ class Stub(models.Model):
 
     Has an incomplete set of migrations: the `age field is missing.
     """
+
     name = models.CharField(max_length=255)
     age = models.IntegerField()

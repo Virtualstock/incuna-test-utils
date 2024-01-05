@@ -1,17 +1,16 @@
 from incuna_test_utils import utils
-
-from .models import User
+from tests.models import User
 
 
 class Parent(object):
     def method(self):
-        return {'foo'}
+        return {"foo"}
 
 
 class Mixin(object):
     def method(self):
         data = super(Mixin, self).method()
-        data.add('bar')
+        data.add("bar")
         return data
 
 
@@ -24,24 +23,24 @@ def test_next_mro_class():
 
 
 def test_import_path():
-    assert utils.import_path(Child) == 'tests.test_utils.Child'
+    assert utils.import_path(Child) == "tests.test_utils.Child"
 
 
 def test_isolate_method():
     """isolate_method allows testing a method independent of its parents."""
     instance = Child()
-    assert instance.method() == {'foo', 'bar'}
+    assert instance.method() == {"foo", "bar"}
 
     isolate_mixin_method = utils.isolate_method(
         Child,
         mixin=Mixin,
-        method_name='method',
+        method_name="method",
         parent_return_value=set(),
     )
     with isolate_mixin_method as method:
-        assert method(instance) == {'bar'}
+        assert method(instance) == {"bar"}
 
 
 def test_field_names():
     fields = utils.field_names(User)
-    assert fields == {'id', 'email', 'name'}
+    assert fields == {"id", "email", "name"}

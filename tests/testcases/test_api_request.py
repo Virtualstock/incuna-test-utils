@@ -1,7 +1,8 @@
 from django.test import override_settings
 
 from incuna_test_utils.testcases.api_request import (
-    BaseAPIExampleTestCase, BaseAPIRequestTestCase,
+    BaseAPIExampleTestCase,
+    BaseAPIRequestTestCase,
 )
 from tests.factories import UserFactory
 
@@ -11,7 +12,7 @@ class APIRequestTestCase(BaseAPIRequestTestCase):
 
     def test_create_request_format(self):
         request = self.create_request()
-        assert request.META['format'] == 'json'
+        assert request.META["format"] == "json"
 
     def test_create_request_auth(self):
         request = self.create_request()
@@ -23,7 +24,7 @@ class APIRequestTestCase(BaseAPIRequestTestCase):
 
 
 class APIExampleTestCase(BaseAPIExampleTestCase):
-    @override_settings(ALLOWED_HOSTS=['localhost'])
+    @override_settings(ALLOWED_HOSTS=["localhost"])
     def test_create_request(self):
         request = self.create_request(auth=False)
 

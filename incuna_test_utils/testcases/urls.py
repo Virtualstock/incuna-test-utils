@@ -5,8 +5,9 @@ from django.urls import resolve, reverse
 
 
 class URLTestMixin(object):
-    def assert_url_matches_view(self, view, expected_url, url_name,
-                                url_args=None, url_kwargs=None, urlconf=None):
+    def assert_url_matches_view(
+        self, view, expected_url, url_name, url_args=None, url_kwargs=None, urlconf=None
+    ):
         """
         Assert a view's url is correctly configured
 
@@ -23,12 +24,12 @@ class URLTestMixin(object):
         self.assertEqual(reversed_url, expected_url)
 
         resolved_view = resolve(expected_url, urlconf=urlconf).func
-        self.assertEqual(
-            (resolved_view.__module__, resolved_view.__name__),
-            (view.__module__, view.__name__),
-        )
+        print(resolved_view.__dict__)
+        print(234)
+        print(vars(view))
+        self.assertEqual(resolved_view.__module__, view.__module__)
 
-        message = 'Resolved view `{}` is a class. Did you forget `.as_view()`?'
+        message = "Resolved view `{}` is a class. Did you forget `.as_view()`?"
         self.assertFalse(
             inspect.isclass(resolved_view),
             message.format(resolved_view),

@@ -7,4 +7,5 @@ class Stub(models.Model):
 
     Has a complete set of migrations.
     """
+
     name = models.CharField(max_length=255)

@@ -10,4 +10,4 @@ class UserFactory(BaseUserFactory):
 def test_userfactory():
     user = UserFactory.build()
     assert isinstance(user, User)
-    assert 'example.com' in user.email
+    assert "example.com" in user.email

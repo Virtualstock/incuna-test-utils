@@ -1,6 +1,11 @@
 Changelog for incuna-test-utils
 ============================
 
+v9.0.0
+
+* Drop support for Django < 3.2
+* Add support for Django 4.2
+
 v8.0.0
 ------
 

@@ -5,12 +5,12 @@ from rest_framework.views import APIView
 
 
 def my_view(request, *args, **kwargs):
-    return HttpResponse('My page.')
+    return HttpResponse("My page.")
 
 
 class MyView(View):
     def get(self, *args, **kwargs):
-        return HttpResponse('My page too.')
+        return HttpResponse("My page too.")
 
 
 class MyAPIView(APIView):
@@ -19,4 +19,4 @@ class MyAPIView(APIView):
 
 
 class MyTemplateView(TemplateView):
-    template_name = 'page.html'
+    template_name = "page.html"
